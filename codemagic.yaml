@@ -1,18 +1,19 @@
 workflows:
-  unity-android-ios:
-    name: Unity Build (Android & iOS)
+  unity-android:
+    name: ZapNumber Android Build
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
-      unity: 6000.0.31f1 # Unity 6のバージョン指定
-      vars:
-        UNITY_BIN: /Applications/Unity/Hub/Editor/6000.0.31f1/Unity.app/Contents/MacOS/Unity
+      groups:
+        - unity # 先ほど登録したメール・パス・シリアルのグループ名
+      unity: 6000.3.1f1
     scripts:
       - name: Build Android
-        script: |
-          # ここにAndroidビルドのコマンドが入ります
-          echo "Building Android..."
-      - name: Build iOS
-        script: |
-          # ここにiOSビルドのコマンドが入ります
-          echo "Building iOS..."
+        script: | 
+          # Unityを起動してビルドを実行する魔法のコマンド
+          unity-cli build \
+            --project . \
+            --target Android \
+            --output "build/android/ZapNumber.apk"
+    artifacts:
+      - build/android/*.apk
