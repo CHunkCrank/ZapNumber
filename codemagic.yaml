@@ -5,15 +5,17 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       groups:
-        - unity # 先ほど登録したメール・パス・シリアルのグループ名
+        - unity
       unity: 6000.3.1f1
     scripts:
       - name: Build Android
         script: | 
-          # Unityを起動してビルドを実行する魔法のコマンド
-          unity-cli build \
-            --project . \
-            --target Android \
-            --output "build/android/ZapNumber.apk"
+          # 道具箱の場所を教えてからビルドを開始します
+          $UNITY_HOME/Contents/MacOS/Unity \
+            -batchmode \
+            -projectPath . \
+            -buildTarget Android \
+            -executeMethod UnityEditor.BuildPlayerWindow.Build \
+            -quit
     artifacts:
-      - build/android/*.apk
+      - "*.apk"
