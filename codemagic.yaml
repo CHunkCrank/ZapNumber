@@ -10,12 +10,12 @@ workflows:
     scripts:
       - name: Build Android
         script: | 
-          # 道具箱の場所を教えてからビルドを開始します
+          # 標準のビルドコマンドに変更しました
           $UNITY_HOME/Contents/MacOS/Unity \
             -batchmode \
+            -nographics \
             -projectPath . \
-            -buildTarget Android \
-            -executeMethod UnityEditor.BuildPlayerWindow.Build \
+            -buildAndroidPlayer "ZapNumber.apk" \
             -quit
     artifacts:
       - "*.apk"
