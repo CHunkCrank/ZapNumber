@@ -4,14 +4,11 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
-      groups:
-        - app_store_connect # ←【重要】後でCodemagic画面で設定する名前
       vars:
-        XCODE_PROJECT: "ios" # Unityが出力するフォルダ名
+        XCODE_PROJECT: "ios"
     scripts:
       - name: Build Xcode Project from Unity
         script: | 
-          # Unityを使ってXcodeプロジェクトを生成
           $UNITY_HOME/Contents/MacOS/Unity \
             -batchmode \
             -quit \
@@ -19,19 +16,11 @@ workflows:
             -nographics \
             -projectPath . \
             -logFile -
-
       - name: Build IPA from Xcode Project
         script: | 
-          # 生成されたXcodeプロジェクトをIPAに変換
+          # 署名なし（または手動署名用）でIPAを作成
           xcode-project build-ipa \
             --workspace "$XCODE_PROJECT/Unity-iPhone.xcworkspace" \
             --scheme "Unity-iPhone"
-
     artifacts:
-      - build/ios/*.ipa # 完成したファイルを取り出す
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-    publishing:
-      app_store_connect:
-        auth: integration 
-        # APIキーを使ってApp Store Connectへアップロード
-        submit_to_testflight: true
+      - build/ios/*.ipa
