@@ -9,8 +9,6 @@ workflows:
     scripts:
       - name: Build Xcode Project from Unity
         script: |
-        - name: Build Xcode Project from Unity
-        script: | 
           # フルパスを指定して実行
           /Applications/Unity/Hub/Editor/6000.3.1f1/Unity.app/Contents/MacOS/Unity \
             -batchmode \
@@ -19,9 +17,9 @@ workflows:
             -nographics \
             -projectPath . \
             -logFile -
-          
+
       - name: Build IPA from Xcode Project
-        script: | 
+        script: |
           # 署名なし（または手動署名用）でIPAを作成
           xcode-project build-ipa \
             --workspace "$XCODE_PROJECT/Unity-iPhone.xcworkspace" \
