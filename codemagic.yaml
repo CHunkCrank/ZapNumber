@@ -4,16 +4,24 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
+      # ▼▼▼ あなたのPCと同じバージョンを指定します ▼▼▼
+      unity: 6000.3.1f1
       groups:
-        - unity # ← これが「そっちの包丁を用意して」という合図です
+        - unity
       vars:
         XCODE_PROJECT: "ios"
     scripts:
       - name: Build Xcode Project from Unity
         script: | 
-          # $UNITY_HOME は「CodemagicにあるUnityの場所」を指す魔法の言葉です
-          echo "Using Unity at: $UNITY_HOME"
+          # これでCodemagicが正しいUnityを見つけられます
+          echo "Unity Home is: $UNITY_HOME"
           
+          # 念のためのチェック
+          if [ -z "$UNITY_HOME" ]; then
+            echo "Error: Unity path not found. Codemagic is installing it or failed to find it."
+            exit 1
+          fi
+
           "$UNITY_HOME/Contents/MacOS/Unity" \
             -batchmode \
             -quit \
