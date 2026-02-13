@@ -5,15 +5,16 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       groups:
-        - unity # ←【重要】これでCodemagicがUnityの場所を準備してくれます
+        - unity # ← これが「そっちの包丁を用意して」という合図です
       vars:
         XCODE_PROJECT: "ios"
     scripts:
       - name: Build Xcode Project from Unity
         script: | 
-          # $UNITY_HOME という「魔法の言葉」を使います
-          # これなら場所がどこにあっても自動で読み替えてくれます
-          $UNITY_HOME/Contents/MacOS/Unity \
+          # $UNITY_HOME は「CodemagicにあるUnityの場所」を指す魔法の言葉です
+          echo "Using Unity at: $UNITY_HOME"
+          
+          "$UNITY_HOME/Contents/MacOS/Unity" \
             -batchmode \
             -quit \
             -executeMethod BuildScript.BuildIOS \
