@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using GoogleMobileAds.Api;
 
 public class InterstitialAdController : MonoBehaviour
@@ -9,7 +9,7 @@ public class InterstitialAdController : MonoBehaviour
     private InterstitialAd _interstitialAd;
     private bool _isLoading;
 
-    private string AdUnitId => 
+    private string AdUnitId =>
 #if UNITY_ANDROID
         interstitialAdUnitIdAndroid;
 #elif UNITY_IOS
@@ -18,26 +18,48 @@ public class InterstitialAdController : MonoBehaviour
         "unused";
 #endif
 
-    private void Start() => LoadInterstitialAd();
+    private void Start()
+    {
+        AdConsentHelper.RequestTrackingAuthorizationIfNeeded();
+        MobileAds.Initialize(_ => LoadInterstitialAd());
+    }
 
     public void LoadInterstitialAd()
     {
         if (_isLoading) return;
+
         _isLoading = true;
         _interstitialAd?.Destroy();
-        
-        InterstitialAd.Load(AdUnitId, new AdRequest(), (ad, error) => {
+
+        InterstitialAd.Load(AdUnitId, new AdRequest(), (ad, error) =>
+        {
             _isLoading = false;
-            if (error != null) return;
+
+            if (error != null)
+            {
+                Debug.LogError($"Interstitial failed: {error.GetMessage()}");
+                return;
+            }
+
             _interstitialAd = ad;
+            Debug.Log("Interstitial loaded");
         });
     }
 
     public void ShowIfReady()
     {
         if (_interstitialAd != null && _interstitialAd.CanShowAd())
+        {
             _interstitialAd.Show();
-        else
-            LoadInterstitialAd();
+            return;
+        }
+
+        Debug.Log("Interstitial not ready, reloading.");
+        LoadInterstitialAd();
+    }
+
+    private void OnDestroy()
+    {
+        _interstitialAd?.Destroy();
     }
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using GoogleMobileAds.Api;
 
 public class BannerAdController : MonoBehaviour
@@ -8,7 +8,7 @@ public class BannerAdController : MonoBehaviour
 
     private BannerView _bannerView;
 
-    private string AdUnitId => 
+    private string AdUnitId =>
 #if UNITY_ANDROID
         _adUnitIdAndroid;
 #elif UNITY_IOS
@@ -19,16 +19,19 @@ public class BannerAdController : MonoBehaviour
 
     private void Start()
     {
+        AdConsentHelper.RequestTrackingAuthorizationIfNeeded();
         MobileAds.Initialize(_ => RequestBanner());
     }
 
     public void RequestBanner()
     {
         if (_bannerView != null) _bannerView.Destroy();
+
         _bannerView = new BannerView(AdUnitId, AdSize.Banner, AdPosition.Bottom);
         _bannerView.OnBannerAdLoaded += () => Debug.Log("Banner loaded");
         _bannerView.OnBannerAdLoadFailed += error =>
             Debug.LogError($"Banner failed: {error.GetMessage()}");
+
         _bannerView.LoadAd(new AdRequest());
     }
 
