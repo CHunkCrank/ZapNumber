@@ -268,12 +268,12 @@ public class BoardPresenter : MonoBehaviour
         {
             PlayerPrefs.DeleteKey("tutorial_done");
             PlayerPrefs.Save();
-            Debug.Log("[Debug] tutorial_done ‚ğíœ‚µ‚Ü‚µ‚½iŸ‹N“®‚Åƒ`ƒ…[ƒgƒŠƒAƒ‹•\¦j");
+            Debug.Log("[Debug] tutorial_done ã‚’å‰Šé™¤ã—ã¾ã—ãŸï¼ˆæ¬¡å›èµ·å‹•ã§ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ãŒè¡¨ç¤ºã•ã‚Œã¾ã™ï¼‰");
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            Debug.Log("[Debug] ƒ`ƒ…[ƒgƒŠƒAƒ‹‹­§•\¦‚Í–¢À‘•‚Å‚·");
+            Debug.Log("[Debug] ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®å¼·åˆ¶è¡¨ç¤ºã¯ç„¡åŠ¹ã§ã™");
         }
     }
 }
