@@ -10,6 +10,7 @@ workflows:
       - name: Build Xcode Project from Unity
         script: |
         - name: Build Xcode Project from Unity
+        script: | 
           # フルパスを指定して実行
           /Applications/Unity/Hub/Editor/6000.3.1f1/Unity.app/Contents/MacOS/Unity \
             -batchmode \
