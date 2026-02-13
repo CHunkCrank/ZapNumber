@@ -4,24 +4,29 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
-      # ▼▼▼ あなたのPCと同じバージョンを指定します ▼▼▼
       unity: 6000.3.1f1
       groups:
-        - unity
+        - unity # 変数(USERNAME, PASSWORD)を読み込む
       vars:
         XCODE_PROJECT: "ios"
     scripts:
+      - name: Activate Unity License
+        script: |
+          # パスワードを使ってログイン認証
+          echo "Logging in to Unity..."
+          
+          "$UNITY_HOME/Contents/MacOS/Unity" \
+            -batchmode \
+            -quit \
+            -nographics \
+            -username "$UNITY_USERNAME" \
+            -password "$UNITY_PASSWORD" \
+            -logFile -
+
       - name: Build Xcode Project from Unity
         script: | 
-          # これでCodemagicが正しいUnityを見つけられます
-          echo "Unity Home is: $UNITY_HOME"
+          echo "Building Xcode Project..."
           
-          # 念のためのチェック
-          if [ -z "$UNITY_HOME" ]; then
-            echo "Error: Unity path not found. Codemagic is installing it or failed to find it."
-            exit 1
-          fi
-
           "$UNITY_HOME/Contents/MacOS/Unity" \
             -batchmode \
             -quit \
