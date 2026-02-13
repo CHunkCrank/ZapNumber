@@ -5,15 +5,15 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       groups:
-        - unity # Codemagic設定でこのグループを作っているか確認してください
+        - unity # ←【重要】これでCodemagicがUnityの場所を準備してくれます
       vars:
-        UNITY_BIN: "/Applications/Unity/Unity.app/Contents/MacOS/Unity"
         XCODE_PROJECT: "ios"
     scripts:
       - name: Build Xcode Project from Unity
-        script: |
-          # Codemagicの標準的なパス、または手動指定のパスで実行を試みる
-          $UNITY_BIN \
+        script: | 
+          # $UNITY_HOME という「魔法の言葉」を使います
+          # これなら場所がどこにあっても自動で読み替えてくれます
+          $UNITY_HOME/Contents/MacOS/Unity \
             -batchmode \
             -quit \
             -executeMethod BuildScript.BuildIOS \
@@ -22,8 +22,7 @@ workflows:
             -logFile -
 
       - name: Build IPA from Xcode Project
-        script: |
-          # XcodeプロジェクトをIPAに変換
+        script: | 
           xcode-project build-ipa \
             --workspace "$XCODE_PROJECT/Unity-iPhone.xcworkspace" \
             --scheme "Unity-iPhone"
