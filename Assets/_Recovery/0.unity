@@ -1151,6 +1151,7 @@ MonoBehaviour:
   movesText: {fileID: 2054325796}
   bestText: {fileID: 2078586457}
   outZoneRows: 1
+  resolvePairDelay: 0.16
 --- !u!4 &1225242777
 Transform:
   m_ObjectHideFlags: 0
@@ -1618,8 +1619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2ccb5047f89ee4da14694fce08fe67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BannerAdController
-  _adUnitIdAndroid: ca-app-pub-3940256099942544/6300978111
-  _adUnitIdIOS: ca-app-pub-3940256099942544/2934735716
+  _adUnitIdAndroid: ca-app-pub-9391723777771759/5444198019
+  _adUnitIdIOS: ca-app-pub-9391723777771759/6745493782
 --- !u!114 &1447958796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,8 +1633,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237e6a736b33b3e489def2ed71280ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InterstitialAdController
-  interstitialAdUnitIdAndroid: ca-app-pub-3940256099942544/1033173712
-  interstitialAdUnitIdIOS: ca-app-pub-3940256099942544/4411468910
+  interstitialAdUnitIdAndroid: ca-app-pub-9391723777771759/3842014687
+  interstitialAdUnitIdIOS: ca-app-pub-9391723777771759/3371133594
 --- !u!1 &1646622758
 GameObject:
   m_ObjectHideFlags: 0
