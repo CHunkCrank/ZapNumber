@@ -21,7 +21,8 @@ public class InterstitialAdController : MonoBehaviour
     private void Start()
     {
         AdConsentHelper.RequestTrackingAuthorizationIfNeeded();
-        MobileAds.Initialize(_ => LoadInterstitialAd());
+        MobileAdsInitializer.Initialize(LoadInterstitialAd);
+        Invoke(nameof(LoadInterstitialWithInitFallback), 1.0f);
     }
 
     public void LoadInterstitialAd()
@@ -60,6 +61,12 @@ public class InterstitialAdController : MonoBehaviour
 
     private void OnDestroy()
     {
+        CancelInvoke(nameof(LoadInterstitialWithInitFallback));
         _interstitialAd?.Destroy();
+    }
+
+    private void LoadInterstitialWithInitFallback()
+    {
+        MobileAdsInitializer.Initialize(LoadInterstitialAd);
     }
 }
