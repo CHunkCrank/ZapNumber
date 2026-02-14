@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 public sealed class InGameLogConsole : MonoBehaviour
 {
     private const int MaxEntries = 300;
@@ -171,3 +172,4 @@ public sealed class InGameLogConsole : MonoBehaviour
         }
     }
 }
+#endif

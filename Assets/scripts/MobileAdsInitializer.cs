@@ -25,13 +25,11 @@ public static class MobileAdsInitializer
         if (_isInitializing) return;
 
         _isInitializing = true;
-        Debug.Log("MobileAdsInitializer: initializing.");
 
         MobileAds.Initialize(_ =>
         {
             _isInitializing = false;
             _isInitialized = true;
-            Debug.Log("MobileAdsInitializer: initialized.");
             FlushPending();
         });
     }

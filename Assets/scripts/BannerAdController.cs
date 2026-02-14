@@ -20,12 +20,10 @@ public class BannerAdController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Banner Start called");
         AdConsentHelper.RequestTrackingAuthorizationIfNeeded();
 
         MobileAdsInitializer.Initialize(() =>
         {
-            Debug.Log("Banner MobileAds.Initialize callback called");
             RequestBannerIfNeeded();
         });
 
@@ -35,7 +33,6 @@ public class BannerAdController : MonoBehaviour
 
     private void RequestBannerIfNeeded()
     {
-        Debug.Log($"RequestBannerIfNeeded called. requested={_bannerRequested}");
         if (_bannerRequested) return;
         _bannerRequested = true;
         RequestBanner();
@@ -48,11 +45,8 @@ public class BannerAdController : MonoBehaviour
 
     public void RequestBanner()
     {
-        Debug.Log("RequestBanner called");
-
         if (_bannerView != null) _bannerView.Destroy();
 
-        Debug.Log("Creating BannerView");
         _bannerView = new BannerView(AdUnitId, AdSize.Banner, AdPosition.Bottom);
         _bannerView.OnBannerAdLoaded += () => Debug.Log("Banner loaded");
         _bannerView.OnBannerAdLoadFailed += error =>
@@ -63,7 +57,6 @@ public class BannerAdController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Banner OnDestroy called");
         CancelInvoke(nameof(RequestBannerWithInitFallback));
         _bannerView?.Destroy();
     }

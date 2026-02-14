@@ -1,5 +1,6 @@
 using UnityEngine;
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 #if UNITY_IOS && !UNITY_EDITOR
 using Unity.Advertisement.IosSupport;
 using UnityEngine.iOS;
@@ -69,3 +70,4 @@ public sealed class AdDebugInfoOverlay : MonoBehaviour
 #endif
     }
 }
+#endif

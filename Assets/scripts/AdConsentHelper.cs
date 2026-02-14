@@ -15,7 +15,6 @@ public static class AdConsentHelper
         _requested = true;
 
         ATTrackingStatusBinding.RequestAuthorizationTracking();
-        Debug.Log("ATT authorization request triggered.");
 #endif
     }
 }
